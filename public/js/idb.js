@@ -51,7 +51,10 @@ function uploadData() {
             fetch('api/transaction', {
                 method: 'POST',
                 body: JSON.stringify(getAll.result),
-                headers: {'Content-Type': 'application/json'}
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
             })
             .then( data => data.json())
             .then((data) => {
