@@ -9,7 +9,7 @@ request.onupgradeneeded = function(event) {
     // save a reference to the database 
     const db = event.target.result;
     // create an object store (table) called `new_budget`, set it to have an auto incrementing primary key of sorts 
-    db.createObjectStore('new_record', { autoIncrement: true });
+    db.createObjectStore('new_transaction', { autoIncrement: true });
   };
 
 // upon a successful 
@@ -31,19 +31,19 @@ request.onerror = function(event) {
 // Save data if no internet connection
 function saveData(data) {
     // create new transaction with db
-    const record = db.record(['new_record'], 'readwrite');
-    const recordObjectStore = record.objectStore('new_record');
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+    const transactionObjectStore = transaction.objectStore('new_transaction');
 
     // add data to object store(table)
-    recordObjectStore.add(data);
+    transactionObjectStore.add(data);
 };
 
 function uploadData() {
-    const record = db.record(['new_record'], 'readwrite');
-    const recordObjectStore = record.objectStore('new_record');
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+    const transactionObjectStore = transaction.objectStore('new_transaction');
 
     // function to get all data
-    const getAll = recordObjectStore.getAll();
+    const getAll = transactionObjectStore.getAll();
 
     // On success of getAll function, upload
     getAll.onsuccess = () => {
@@ -62,11 +62,11 @@ function uploadData() {
                     throw new Error(data);
                 }
                 
-                const record = db.record(['new_record'], 'readwrite');
-                const recordObjectStore = record.objectStore('new_record');
-                recordObjectStore.clear();
+                const transaction = db.transaction(['new_transaction'], 'readwrite');
+                const transactionObjectStore = transaction.objectStore('new_transaction');
+                transactionObjectStore.clear();
 
-                alert('All saved records have been uploaded to your budget!!')
+                alert('All saved transactions have been uploaded to your budget!!')
 
 
             })
