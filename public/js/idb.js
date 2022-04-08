@@ -2,7 +2,7 @@
 let db;
 
 // establish the connection to IndexedDB, name it and set to version 1
-const request = indexedDB.open('budget_tracker', 1);
+const request = indexedDB.open('budget_app', 1);
 
 // this event will emit if the database version changes (nonexistant to version 1, v1 to v2, etc.)
 request.onupgradeneeded = function(event) {
@@ -29,13 +29,13 @@ request.onerror = function(event) {
 };
 
 // Save data if no internet connection
-function saveData(data) {
+function saveRecord(record) {
     // create new transaction with db
     const transaction = db.transaction(['new_transaction'], 'readwrite');
     const transactionObjectStore = transaction.objectStore('new_transaction');
 
     // add data to object store(table)
-    transactionObjectStore.add(data);
+    transactionObjectStore.add(record);
 };
 
 function uploadData() {
