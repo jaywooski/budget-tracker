@@ -57,7 +57,7 @@ function uploadData() {
                     'Content-Type': 'application/json'
                 }
             })
-            .then( data => data.json())
+            .then((data) => data.json())
             .then((data) => {
                 if(data.message) {
                     throw new Error(data);
@@ -71,7 +71,9 @@ function uploadData() {
 
 
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+            })
         }
     }
 };
